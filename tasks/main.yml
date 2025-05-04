@@ -1,24 +1,24 @@
 #SPDX-License-Identifier: MIT-0
 ---
-- name: Install nginx
+- name: Nginx | Install nginx
   apt:
     name: nginx
     state: present
     update_cache: yes
 
-- name: Copy nginx site configuration
+- name: Nginx | Copy nginx site configuration
   template:
     src: "{{ nginx_site_template }}"
     dest: "{{ nginx_site_available }}"
   notify: Restart nginx
 
-- name: Enable nginx site
+- name: Nginx | Enable nginx site
   file:
     src: "{{ nginx_site_available }}"
     dest: "{{ nginx_site_enabled }}"
     state: link
 
-- name: Ensure nginx is running
+- name: Nginx | Ensure nginx is running
   service:
     name: nginx
     state: started
